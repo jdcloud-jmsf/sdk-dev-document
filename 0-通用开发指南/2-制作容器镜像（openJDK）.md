@@ -1,0 +1,36 @@
+该任务指导您通过 Spring Cloud 和 Mesh 两种方式制作容器镜像。
+
+## 准备构建材料
+### Spring Cloud应用构建材料
+
+**1. 简化版本**
+
+简化版本的 Dockerfile 不包含文件配置和 JVM 监控功能，仅需要用户替换掉 Dockerfile 中 Spring Cloud 应用 jar 包名称，您也可以先试用 JMesh 提供的 Spring Cloud 应用 Demo JAR 包。
+
+>在 Spring Cloud 应用 JAR 包同级目录下编写 Dockerfile。
+
+```dockerfile
+FROM openjdk:11
+RUN echo "ip_resolve=4" >> /etc/yum.conf
+
+# 设置时区。这对于日志、调用链等功能能否在控制台被检索到非常重要。
+RUN /bin/cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+RUN echo "Asia/Shanghai" > /etc/timezone
+ENV workdir /app/
+
+# 下面的jar包可替换为您的 Spring Cloud 应用jar包，注意这个jar包要和您的dockerfile位于同一级目录
+ENV jar provider-demo-0.0.1-SNAPSHOT.jar
+COPY ${jar} ${workdir}
+WORKDIR ${workdir}
+
+# JAVA_OPTS环境变量的值为部署组的JVM启动参数，在运行时bash替换。使用 exec 以使Java程序可以接收SIGTERM信号。
+CMD ["sh", "-ec", "exec java ${JAVA_OPTS} -jar ${jar}"]
+```
+
+##  构建镜像
+1. 在`Dockerfile`所在目录执行`build`命令：
+```bash
+docker build . -t xxxx.jdcloud.com/jmesh_<主账号 ID>/<应用名>:[tag]
+```
+其中`<主账号 ID>`对应用户平台的**主账号 ID**（注意不是当前登录账号 ID，主账号 ID 可以在平台个人信息页面获取。），`<应用名>`表示控制台上的应用名。`tag`为镜像的 tag，用户可自定义。
+2. 命令执行完成后，通过`docker image ls`查看创建的镜像。

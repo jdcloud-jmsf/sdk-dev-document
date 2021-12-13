@@ -1,0 +1,121 @@
+# Demo工程概述
+
+## 开发前准备
+
+开发前，请确保已下载安装了 Java 和 Maven。
+## 获取 Demo
+
+[Demo 下载地址 >>](https://github.com/jdcloud-jmsf/spring-cloud-demo)
+
+## Demo 工程目录
+
+`spring-cloud-demo`的工程目录如下：
+
+| 工程名称           | 工程说明                 |
+| ------------------ | ------------------------ |
+| jmsf-consumer-demo | JMSF微服务治理服务消费者 |
+| jmsf-provider-demo | JMSF微服务治理服务提供者 |
+
+1. pom.xml 中定义了工程需要的依赖包（以下以基于 Spring Cloud Finchley 版本 SDK 举例说明）：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <groupId>com.jdcloud.jmsf</groupId>
+        <artifactId>spring-cloud-jmsf-dependencies</artifactId>
+        <version><!-- 调整为SDK正式发布版本号 --></version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>jmsf-consumer-demo</artifactId>
+    <name>JMSF - Spring Cloud Consumer Demo</name>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.jdcloud.jmsf</groupId>
+            <artifactId>spring-cloud-starter-jmsf</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
+```
+
+其中 parent 描述了不同微服务 demo 共同的JMSF依赖。
+
+```xml
+<parent>
+    <groupId>com.jdcloud.jmsf</groupId>
+    <artifactId>spring-cloud-jmsf-dependencies</artifactId>
+    <version><!-- 调整为SDK正式发布版本号 --></version>
+</parent>
+```
+
+关于 Maven 环境安装以及JMSF SDK下载，请参考 [SDK 下载](./0-通用开发指南/3-SDK下载.md) 和 [SDK版本概述](./0-SDK版本概述.md) 。
+
+2. 当您不希望采用`parent`依赖JMSF的dependencies时，可以采用`dependencyManagement`方式引入依赖。
+
+```xml
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>com.jdcloud.jmsf</groupId>
+      <artifactId>spring-cloud-jmsf-dependencies</artifactId>
+      <version><!-- 调整为SDK正式发布版本号 --></version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+```
+
+
+## 依赖项及注解使用
+
+1. 向工程中添加依赖。在`pom.xml`中添加以下代码：
+
+```xml
+<dependency>
+    <groupId>com.jdcloud.jmsf</groupId>
+    <artifactId>spring-cloud-starter-jmsf</artifactId>
+    <version><!-- 调整为SDK正式发布版本号 --></version>
+</dependency>
+```
+`spring-cloud-starter-jmsf` 中包含了服务注册发现、服务路由、服务鉴权、服务限流、服务熔断、服务容错、分布式配置等功能。
+
+2. 默认不需要加入任何注解，引入starter包后默认启用所有功能，可通过如下配置关闭整体特性：
+
+```yaml
+jmsf:
+  enabled: false #关闭SDK包所有功能（默认开）
+  metadata:  #自定义标签
+    aa: aa
+    bb: bb
+  route:
+    load-balance: random  
+    retryable-status-codes:   #配置应用请求重试的状态码
+      - 404
+      - 500
+      - 502
+  circuit-breaker:
+    enabled: true   #熔断降级开关（默认开）
+
+  swagger:
+    enabled: true  #API到处到控制台开关（默认开）
+    basePackage: com.jdcloud  #API扫描路径
+```

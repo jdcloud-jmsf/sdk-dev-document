@@ -1,0 +1,10 @@
+{
+  "plugins": [
+       "anchor-navigation-ex","-lunr", "-search", "search-pro", "chapter-fold", "-fontsettings", "advanced-emoji", "alerts"
+  ],
+  "pluginsConfig": {
+      "fontsettings": {
+          "size": 3
+      }
+  }
+}

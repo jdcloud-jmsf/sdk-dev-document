@@ -1,3 +1,3 @@
 FROM nginx
-COPY _book/ /usr/share/nginx/html/
+COPY docs/.vuepress/dist/ /usr/share/nginx/html/
 

@@ -1,0 +1,31 @@
+{
+  "name": "sdk-dev-doc",
+  "description": "该章节包含了您在开发过程中所用到的的常规操作内容。",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "vuepress": "^1.9.5"
+  },
+  "devDependencies": {},  
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdcloud-jmsf/sdk-dev-document.git"
+  },
+  "keywords": [
+    "doc",
+    "dev"
+  ],
+  "author": "JMSF",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jdcloud-jmsf/sdk-dev-document/issues"
+  },
+  "homepage": "https://github.com/jdcloud-jmsf/sdk-dev-document#readme"
+}

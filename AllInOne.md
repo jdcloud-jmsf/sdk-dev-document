@@ -1331,5 +1331,11 @@ JMSF为用户现存的Dubbo应用提供两种SDK，分别适用于一下场景�
 
 Dubbo 作为一款传统基于 SDK 的 Java RPC 框架，通过引入 jar 包的方式实现服务间远程方法调用、服务注册发现及服务治理。Dubbo 开发的应用在不修改任何业务代码的前提下，通过引入**轻量级SDK**封包部署到JMSF平台，可透明实现服务注册发现和无侵入的服务治理能力。
 
-同前面《Dubbo应用接入JMSF》文中操作相同，在应用的Maven依赖中引入**轻量级SDK**，并于控制台选择Mesh部署方式即可。如下图所示：
-
+同前面《Dubbo应用接入JMSF》文中操作相同，在应用的Maven依赖中引入**轻量级SDK**，并于控制台选择Mesh部署方式即可。如下所示：
+```xml
+<dependency>
+    <groupId>com.jdcloud.jmsf</groupId>
+    <artifactId>dubbo-registry-consul</artifactId>
+    <version>${latest.version}</version>
+</dependency>
+```

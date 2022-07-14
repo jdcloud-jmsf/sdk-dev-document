@@ -449,7 +449,7 @@ JMSF兼容主流Spring Cloud版本，具体可参考 [SDK 版本概述](./sectio
 </parent>
 ```
 
-关于 Maven 环境安装以及JMSF SDK下载，请参考 [SDK 下载](../../section1/0.3-sdk-xiaz-zai.md) 和 [SDK版本概述](../../section2/1.2.0-sdk-ban-ben-gai-shu.md) 。
+关于 Maven 环境安装以及JMSF SDK下载，请参考 [SDK 下载](./section1/0.3-sdk-xia-zai.md) 和 [SDK版本概述](./section2/1.2.0-sdk-ban-ben-gai-shu.md) 。
 
 1. 当您不希望采用`parent`依赖JMSF的dependencies时，可以采用`dependencyManagement`方式引入依赖。
 
